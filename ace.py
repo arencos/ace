@@ -49,5 +49,4 @@ class Ace:
 
 #Ace.openbox_add_to_autostart(Ace(), "nitrogen --restore")
 #Ace.openbox_add_keybinding(Ace(), "C-W-a", "sudo shutdown now")
-Ace.awesome_add_to_autostart(Ace(), "nitrogen --restore")
-Ace.awesome_add_to_autostart(Ace(), "xrandr -s 1440x900")
+#Ace.awesome_add_to_autostart(Ace(), "xrandr -s 1440x900")
