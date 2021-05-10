@@ -2,12 +2,9 @@ import os, subprocess
 from inspect import getframeinfo, stack
 import aceconfig as conf
 import xml.etree.ElementTree as xml
-import os.path
+import getpass
 
 class Ace:
-	
-	
-	
 	def __init__(self):
 		if os.geteuid() != 0:
 			exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
@@ -25,7 +22,7 @@ class Ace:
 			f.write(cmd + "\n")
 			Ace().ace_debug("Found file, arg passed: " + cmd)
 			f.close()
-		except IOError as e:
+		except Exception as e:
 			Ace().ace_debug(e)
 			f.close()
 
@@ -37,8 +34,9 @@ class Ace:
 
 
 	def awesome_add_to_autostart(self, cmd):
-		homedir = os.path.expanduser("~")
-		f = open(homedir + "/.config/awesome/rc.lua", "a")
+		homedir = os.environ['HOME']
+		Ace().ace_debug(os.getlogin())
+		f = open("/home/" + os.getlogin() + "/.config/awesome/rc.lua", "a")
 		try:
 			f.write("\nawful.spawn.with_shell(\"%s\")\n" % cmd)
 			Ace().ace_debug("Added %s to awesome autostart." % cmdS)
@@ -51,4 +49,5 @@ class Ace:
 
 #Ace.openbox_add_to_autostart(Ace(), "nitrogen --restore")
 #Ace.openbox_add_keybinding(Ace(), "C-W-a", "sudo shutdown now")
-#Ace.awesome_add_to_autostart(Ace(), "nitrogen --restore")
+Ace.awesome_add_to_autostart(Ace(), "nitrogen --restore")
+Ace.awesome_add_to_autostart(Ace(), "xrandr -s 1440x900")
