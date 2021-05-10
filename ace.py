@@ -22,7 +22,7 @@ class Ace:
 			f.write(cmd + "\n")
 			Ace().ace_debug("Found file, arg passed: " + cmd)
 			f.close()
-		except Exception as e:
+		except IOError as e:
 			Ace().ace_debug(e)
 			f.close()
 
@@ -45,8 +45,32 @@ class Ace:
 			Ace().ace_debug(e)
 			f.close()
 
+	def add_to_xprofile(self, cmd):
+		home = "/home/" + os.getlogin()
+		f = open(home + "/.xprofile", "a")
+		try:
+		    f.write(cmd + "\n")
+		    Ace().ace_debug("Found file, arg passed: " + cmd)
+		    f.close()
+		except Exception as e:
+			Ace().ace_debug(e)
+			f.close()
 
+
+
+
+# ---- openbox ----
 
 #Ace.openbox_add_to_autostart(Ace(), "nitrogen --restore")
 #Ace.openbox_add_keybinding(Ace(), "C-W-a", "sudo shutdown now")
+
+# ---- awesomewm ----
+
 #Ace.awesome_add_to_autostart(Ace(), "xrandr -s 1440x900")
+
+# ---- x11 ---- #
+
+#Ace.add_to_xprofile(Ace(), "tilix")
+#Ace.add_to_xprofile(Ace(), "feh --bg-scale --randomize ~/Pictures/Wallpaper-Stock/ &")
+#Ace.add_to_xprofile(Ace(), "picom -f &")
+#Ace.add_to_xprofile(Ace(), "# exec de_or_window_manager &")
